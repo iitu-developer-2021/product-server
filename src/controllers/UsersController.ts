@@ -1,13 +1,16 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { config } from '../../config'
+import { config } from '../config'
 import { Request, Response } from 'express'
-import { Users as UsersModel } from '../../models/usersModel'
-import type { UserResponse } from './UserController.type'
+import { Users as UsersModel } from '../models/usersModel'
+import type { UserAttributes } from '../models/usersModel'
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const { name, surname, login, password } = req.body as UserResponse
+        const { name, surname, login, password } = req.body as Omit<
+            UserAttributes,
+            'id'
+        >
 
         if (!(login && password)) {
             return res.status(400).json({

@@ -1,0 +1,63 @@
+import { Request, Response } from 'express'
+import { Sells as SellsModel } from '../models/sells'
+import type { SellAttributes } from '../models/sells'
+
+export const createSell = async (req: Request, res: Response) => {
+    try {
+        const sellProduct = req.body as Omit<SellAttributes, 'id'>
+
+        const createdSellProduct = await SellsModel.create(sellProduct)
+
+        res.status(201).json({
+            message: 'Запрос успешно отработал',
+            status: 'success',
+            result: {
+                type: {
+                    id: createdSellProduct.id,
+                    ...sellProduct,
+                },
+            },
+        })
+    } catch (err) {
+        res.status(500).json({
+            message:
+                'Запрос завершился неудачно:' +
+                (err as { message: string }).message,
+            status: 'error',
+            result: null,
+        })
+        console.log(err)
+    }
+}
+
+export const getAllProductSellsByClientSellId = async (
+    req: Request,
+    res: Response
+) => {
+    try {
+        const { clientSellId } = req.body as { clientSellId: number }
+
+        const productImages = await SellsModel.findAll({
+            where: {
+                clientSellId: clientSellId,
+            },
+        })
+
+        res.status(201).json({
+            message: 'Запрос успешно отработал',
+            status: 'success',
+            result: {
+                productImages: productImages,
+            },
+        })
+    } catch (err) {
+        res.status(500).json({
+            message:
+                'Запрос завершился неудачно:' +
+                (err as { message: string }).message,
+            status: 'error',
+            result: null,
+        })
+        console.log(err)
+    }
+}
