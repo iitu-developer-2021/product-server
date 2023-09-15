@@ -4,7 +4,8 @@ import * as TypeController from '../controllers/TypeController'
 import * as ProductImagesController from '../controllers/ProductImageController'
 import * as ClientSellController from '../controllers/ClientSellController'
 import * as ProductController from '../controllers/ProductController'
-import * as SellController from "../controllers/SellController"
+import * as SellController from '../controllers/SellController'
+import { verifyToken } from '../middlewares/auth'
 
 const router = express.Router()
 
@@ -17,19 +18,28 @@ router.get('/test', (req, res) => {
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 
-router.post('/types', TypeController.createType)
-router.get('/types', TypeController.getAllTypes)
+router.post('/types', verifyToken, TypeController.createType)
+router.get('/types', verifyToken, TypeController.getAllTypes)
+router.put('/types', verifyToken, TypeController.editType)
+router.delete('/types/:id', verifyToken, TypeController.deleteType)
 
-router.post('/productImages', ProductImagesController.createProductImage)
-router.get('/productImages', ProductImagesController.getAllProductImagesById)
+router.post(
+    '/productImages',
+    verifyToken,
+    ProductImagesController.createProductImage
+)
+router.get(
+    '/productImages',
+    verifyToken,
+    ProductImagesController.getAllProductImagesById
+)
 
-router.post('/clientSell', ClientSellController.createClientSell)
+router.post('/clientSells', verifyToken, ClientSellController.createClientSell)
+router.get('/clientSells', verifyToken, ClientSellController.getClientSells)
 
-router.post('/products', ProductController.createProduct)
-router.get('/products', ProductController.getAllProducts)
+router.post('/products', verifyToken, ProductController.createProduct)
+router.get('/products', verifyToken, ProductController.getAllProducts)
 
-
-router.post('/sells', SellController.createSell)
-router.get('/products', SellController.getAllProductSellsByClientSellId)
+router.post('/sells', verifyToken, SellController.createSell)
 
 export default router

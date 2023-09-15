@@ -4,7 +4,9 @@ import type { ProductAttributes } from '../models/productsModel'
 
 export const createProduct = async (req: Request, res: Response) => {
     try {
-        const product = req.body as Omit<ProductAttributes, 'id'>
+        const product = req.body as Omit<ProductAttributes, 'id'> & {
+            typesId: number
+        }
 
         const createdProduct = await ProductModel.create(product)
 

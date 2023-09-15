@@ -22,7 +22,7 @@ interface UserInstance
     updatedAt?: Date
 }
 
-export const Users = sequelize.define<UserInstance>('Users', {
+export const Users = sequelize.define<UserInstance>('users', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

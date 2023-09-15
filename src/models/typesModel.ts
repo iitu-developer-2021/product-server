@@ -15,7 +15,7 @@ interface TypesInstance
     updatedAt?: Date
 }
 
-export const Types = sequelize.define<TypesInstance>('Types', {
+export const Types = sequelize.define<TypesInstance>('types', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

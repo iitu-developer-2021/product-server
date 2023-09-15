@@ -16,7 +16,7 @@ interface ProductImagesInstance
 }
 
 export const ProductImages = sequelize.define<ProductImagesInstance>(
-    'ProductImages',
+    'productImages',
     {
         id: {
             type: DataTypes.INTEGER,

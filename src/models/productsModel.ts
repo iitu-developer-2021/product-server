@@ -1,10 +1,10 @@
 import { DataTypes, Optional, Model } from 'sequelize'
 import { sequelize } from '../core/db'
+import { Types as TypesModel } from './typesModel'
+import { ProductImages as ProductImagesModel } from './productImagesModel'
 
 export type ProductAttributes = {
     id: number
-    imageId?: number
-    typeId: number
     name: string
     wholesalePrice: string
     retailPrice: string
@@ -12,7 +12,7 @@ export type ProductAttributes = {
     isWeightProduct: boolean
 }
 
-type ProductCreationAttributes = Optional<ProductAttributes, 'id' | 'imageId'>
+type ProductCreationAttributes = Optional<ProductAttributes, 'id'>
 
 interface ProductInstance
     extends Model<ProductAttributes, ProductCreationAttributes>,
@@ -21,18 +21,11 @@ interface ProductInstance
     updatedAt?: Date
 }
 
-export const Products = sequelize.define<ProductInstance>('Products', {
+export const Products = sequelize.define<ProductInstance>('products', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-    },
-    imageId: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-    typeId: {
-        type: DataTypes.INTEGER,
     },
     name: {
         type: DataTypes.STRING,
@@ -53,5 +46,29 @@ export const Products = sequelize.define<ProductInstance>('Products', {
     isWeightProduct: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
+    },
+})
+
+TypesModel.hasMany(Products, {
+    foreignKey: {
+        name: 'typesId',
+    },
+})
+
+Products.belongsTo(TypesModel, {
+    foreignKey: {
+        name: 'typesId',
+    },
+})
+
+ProductImagesModel.hasMany(Products, {
+    foreignKey: {
+        name: 'productsId',
+    },
+})
+
+Products.belongsTo(ProductImagesModel, {
+    foreignKey: {
+        name: 'productsId',
     },
 })

@@ -1,9 +1,9 @@
 import { DataTypes, Optional, Model } from 'sequelize'
 import { sequelize } from '../core/db'
+import { ClientSells as ClientSellsModel } from './clientSells'
 
 export type SellAttributes = {
     id: number
-    clientSellId: number
     name: string
     sellPrice: string
     productPrice: string
@@ -22,14 +22,11 @@ interface SellInstance
     updatedAt?: Date
 }
 
-export const Sells = sequelize.define<SellInstance>('Sells', {
+export const Sells = sequelize.define<SellInstance>('sells', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-    },
-    clientSellId: {
-        type: DataTypes.INTEGER,
     },
     name: {
         type: DataTypes.STRING,
@@ -51,5 +48,16 @@ export const Sells = sequelize.define<SellInstance>('Sells', {
     },
     isWeightProduct: {
         type: DataTypes.BOOLEAN,
+    },
+})
+
+ClientSellsModel.hasMany(Sells, {
+    foreignKey: {
+        name: 'clientSellsId',
+    },
+})
+Sells.belongsTo(ClientSellsModel, {
+    foreignKey: {
+        name: 'clientSellsId',
     },
 })

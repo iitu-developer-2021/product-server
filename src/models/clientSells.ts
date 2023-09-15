@@ -4,6 +4,7 @@ import { sequelize } from '../core/db'
 export type ClientSellAttributes = {
     id: number
     name: string
+    totalPrice: string
 }
 
 type ClientSellCreationAttributes = Optional<ClientSellAttributes, 'id'>
@@ -15,7 +16,7 @@ interface ClientSellInstance
     updatedAt?: Date
 }
 
-export const ClientSells = sequelize.define<ClientSellInstance>('ClientSells', {
+export const ClientSells = sequelize.define<ClientSellInstance>('clientSells', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -24,5 +25,8 @@ export const ClientSells = sequelize.define<ClientSellInstance>('ClientSells', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    totalPrice: {
+        type: DataTypes.STRING,
     },
 })
