@@ -39,6 +39,7 @@ router.get('/clientSells', verifyToken, ClientSellController.getClientSells)
 
 router.post('/products', verifyToken, ProductController.createProduct)
 router.get('/products', verifyToken, ProductController.getAllProducts)
+router.post('/products-init', ProductController.initProducts)
 
 router.post('/sells', verifyToken, SellController.createSell)
 
