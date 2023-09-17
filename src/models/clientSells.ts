@@ -1,5 +1,6 @@
 import { DataTypes, Optional, Model } from 'sequelize'
 import { sequelize } from '../core/db'
+import type { SellAttributes } from './sells'
 
 export type ClientSellAttributes = {
     id: number
@@ -12,6 +13,7 @@ type ClientSellCreationAttributes = Optional<ClientSellAttributes, 'id'>
 interface ClientSellInstance
     extends Model<ClientSellAttributes, ClientSellCreationAttributes>,
         ClientSellAttributes {
+    sells?: SellAttributes[]
     createdAt?: Date
     updatedAt?: Date
 }

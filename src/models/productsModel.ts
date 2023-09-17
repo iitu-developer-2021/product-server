@@ -10,6 +10,7 @@ export type ProductAttributes = {
     retailPrice: string
     price: string
     isWeightProduct: boolean
+    typesId?: number
 }
 
 type ProductCreationAttributes = Optional<ProductAttributes, 'id'>

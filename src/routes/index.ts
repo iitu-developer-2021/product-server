@@ -36,9 +36,15 @@ router.get(
 
 router.post('/clientSells', verifyToken, ClientSellController.createClientSell)
 router.get('/clientSells', verifyToken, ClientSellController.getClientSells)
+router.delete(
+    '/clientSells/:id',
+    verifyToken,
+    ClientSellController.deleteClientSell
+)
 
 router.post('/products', verifyToken, ProductController.createProduct)
 router.get('/products', verifyToken, ProductController.getAllProducts)
+router.delete('/products/:id', verifyToken, ProductController.deleteProduct)
 router.post('/products-init', ProductController.initProducts)
 
 router.post('/sells', verifyToken, SellController.createSell)
