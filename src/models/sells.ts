@@ -8,7 +8,6 @@ export type SellAttributes = {
     sellPrice: string
     productPrice: string
     count: string
-    totalPrice: string
     typeName: string
     isWeightProduct: boolean
 }
@@ -38,9 +37,6 @@ export const Sells = sequelize.define<SellInstance>('sells', {
         type: DataTypes.STRING,
     },
     count: {
-        type: DataTypes.STRING,
-    },
-    totalPrice: {
         type: DataTypes.STRING,
     },
     typeName: {

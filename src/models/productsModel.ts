@@ -1,7 +1,6 @@
 import { DataTypes, Optional, Model } from 'sequelize'
 import { sequelize } from '../core/db'
 import { Types as TypesModel } from './typesModel'
-import { ProductImages as ProductImagesModel } from './productImagesModel'
 
 export type ProductAttributes = {
     id: number
@@ -11,6 +10,8 @@ export type ProductAttributes = {
     price: string
     isWeightProduct: boolean
     typesId?: number
+    barcode?: string
+    count: number
 }
 
 type ProductCreationAttributes = Optional<ProductAttributes, 'id'>
@@ -28,6 +29,9 @@ export const Products = sequelize.define<ProductInstance>('products', {
         autoIncrement: true,
         primaryKey: true,
     },
+    barcode: {
+        type: DataTypes.STRING,
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -44,6 +48,10 @@ export const Products = sequelize.define<ProductInstance>('products', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    count: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
     isWeightProduct: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -59,17 +67,5 @@ TypesModel.hasMany(Products, {
 Products.belongsTo(TypesModel, {
     foreignKey: {
         name: 'typesId',
-    },
-})
-
-ProductImagesModel.hasMany(Products, {
-    foreignKey: {
-        name: 'productsId',
-    },
-})
-
-Products.belongsTo(ProductImagesModel, {
-    foreignKey: {
-        name: 'productsId',
     },
 })

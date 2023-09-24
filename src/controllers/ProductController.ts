@@ -63,6 +63,7 @@ export const initProducts = async (req: Request, res: Response) => {
         const mappedList = list.map((listItem) => ({
             ...listItem,
             typesId: +listItem.typesId,
+            count: 0,
         }))
         const products = await ProductModel.bulkCreate(mappedList)
 
