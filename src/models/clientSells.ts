@@ -5,7 +5,7 @@ import type { SellAttributes } from './sells'
 export type ClientSellAttributes = {
     id: number
     name: string
-    totalPrice: string
+    totalPrice: number
 }
 
 type ClientSellCreationAttributes = Optional<ClientSellAttributes, 'id'>
@@ -29,6 +29,6 @@ export const ClientSells = sequelize.define<ClientSellInstance>('clientSells', {
         allowNull: false,
     },
     totalPrice: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
     },
 })

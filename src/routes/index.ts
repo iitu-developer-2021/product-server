@@ -1,7 +1,6 @@
 import express from 'express'
 import * as UserController from '../controllers/UsersController'
 import * as TypeController from '../controllers/TypeController'
-import * as ProductImagesController from '../controllers/ProductImageController'
 import * as ClientSellController from '../controllers/ClientSellController'
 import * as ProductController from '../controllers/ProductController'
 import * as SellController from '../controllers/SellController'
@@ -23,17 +22,6 @@ router.get('/types', verifyToken, TypeController.getAllTypes)
 router.put('/types', verifyToken, TypeController.editType)
 router.delete('/types/:id', verifyToken, TypeController.deleteType)
 
-router.post(
-    '/productImages',
-    verifyToken,
-    ProductImagesController.createProductImage
-)
-router.get(
-    '/productImages',
-    verifyToken,
-    ProductImagesController.getAllProductImagesById
-)
-
 router.post('/clientSells', verifyToken, ClientSellController.createClientSell)
 router.get('/clientSells', verifyToken, ClientSellController.getClientSells)
 router.delete(
@@ -43,6 +31,7 @@ router.delete(
 )
 
 router.post('/products', verifyToken, ProductController.createProduct)
+router.put('/products', verifyToken, ProductController.editProduct)
 router.get('/products', verifyToken, ProductController.getAllProducts)
 router.delete('/products/:id', verifyToken, ProductController.deleteProduct)
 router.post('/products-init', ProductController.initProducts)

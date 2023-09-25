@@ -5,9 +5,9 @@ import { ClientSells as ClientSellsModel } from './clientSells'
 export type SellAttributes = {
     id: number
     name: string
-    sellPrice: string
-    productPrice: string
-    count: string
+    sellPrice: number
+    productPrice: number
+    count: number
     typeName: string
     isWeightProduct: boolean
 }
@@ -31,13 +31,13 @@ export const Sells = sequelize.define<SellInstance>('sells', {
         type: DataTypes.STRING,
     },
     sellPrice: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
     },
     productPrice: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
     },
     count: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
     },
     typeName: {
         type: DataTypes.STRING,

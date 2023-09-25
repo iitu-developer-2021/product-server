@@ -5,9 +5,9 @@ import { Types as TypesModel } from './typesModel'
 export type ProductAttributes = {
     id: number
     name: string
-    wholesalePrice: string
-    retailPrice: string
-    price: string
+    wholesalePrice: number
+    retailPrice: number
+    price: number
     isWeightProduct: boolean
     typesId?: number
     barcode?: string
@@ -37,15 +37,15 @@ export const Products = sequelize.define<ProductInstance>('products', {
         allowNull: false,
     },
     wholesalePrice: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     retailPrice: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     price: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     count: {

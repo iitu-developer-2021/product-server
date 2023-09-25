@@ -63,8 +63,8 @@ export const initProducts = async (req: Request, res: Response) => {
         const mappedList = list.map((listItem) => ({
             ...listItem,
             typesId: +listItem.typesId,
-            count: 0,
         }))
+        //@ts-ignore
         const products = await ProductModel.bulkCreate(mappedList)
 
         res.status(201).json({
@@ -115,7 +115,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     }
 }
 
-export const editType = async (req: Request, res: Response) => {
+export const editProduct = async (req: Request, res: Response) => {
     try {
         const {
             id,
@@ -125,9 +125,9 @@ export const editType = async (req: Request, res: Response) => {
             isWeightProduct,
             price,
             typesId,
-        } = req.body as ProductAttributes & {
-            typesId: number
-        }
+            count,
+            barcode,
+        } = req.body as ProductAttributes
 
         const product = await ProductModel.findOne({
             where: {
@@ -143,14 +143,15 @@ export const editType = async (req: Request, res: Response) => {
             })
         }
 
-        product.update({
-            id: id + 1000,
+        await product.update({
             name,
             retailPrice,
             wholesalePrice,
             isWeightProduct,
             price,
             typesId,
+            count,
+            barcode,
         })
 
         res.status(201).json({

@@ -6,7 +6,7 @@ export const createClientSell = async (req: Request, res: Response) => {
     try {
         const { name, totalPrice } = req.body as {
             name: string
-            totalPrice: string
+            totalPrice: number
         }
         const clientSell = await ClientSellsModel.create({
             name,
