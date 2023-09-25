@@ -10,6 +10,7 @@ export type SellAttributes = {
     count: number
     typeName: string
     isWeightProduct: boolean
+    barcode: string
 }
 
 type SellCreationAttributes = Optional<SellAttributes, 'id'>
@@ -44,6 +45,9 @@ export const Sells = sequelize.define<SellInstance>('sells', {
     },
     isWeightProduct: {
         type: DataTypes.BOOLEAN,
+    },
+    barcode: {
+        type: DataTypes.STRING,
     },
 })
 
