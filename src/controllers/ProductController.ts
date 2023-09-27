@@ -60,11 +60,11 @@ export const initProducts = async (req: Request, res: Response) => {
     try {
         const { start, end } = req.body as { start: number; end: number }
         const list = productList.slice(start, end)
-        console.log(productList)
+        
         const mappedList = list.map((listItem) => ({
             ...listItem,
             typesId: +listItem.typesId,
-            wholesalePrice: listItem.whosalesPrice,
+            wholesalePrice: listItem.wholesalePrice,
         }))
 
         console.log(mappedList)
