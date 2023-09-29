@@ -60,7 +60,7 @@ export const initProducts = async (req: Request, res: Response) => {
     try {
         const { start, end } = req.body as { start: number; end: number }
         const list = productList.slice(start, end)
-        
+
         const mappedList = list.map((listItem) => ({
             ...listItem,
             typesId: +listItem.typesId,
@@ -71,6 +71,36 @@ export const initProducts = async (req: Request, res: Response) => {
 
         //@ts-ignore
         const products = await ProductModel.bulkCreate(mappedList)
+
+        res.status(201).json({
+            message: 'Запрос успешно отработал',
+            status: 'success',
+            result: {
+                createdProducts: products,
+            },
+        })
+    } catch (err) {
+        res.status(500).json({
+            message:
+                'Запрос завершился неудачно:' +
+                (err as { message: string }).message,
+            status: 'error',
+            result: null,
+        })
+        console.log(err)
+    }
+}
+
+export const uploadProducts = async (req: Request, res: Response) => {
+    try {
+        type Product = Omit<ProductAttributes, 'id'> & {
+            typesId: number
+        }
+
+        const productList = req.body as Product[]
+
+        //@ts-ignore
+        const products = await ProductModel.bulkCreate(productList)
 
         res.status(201).json({
             message: 'Запрос успешно отработал',

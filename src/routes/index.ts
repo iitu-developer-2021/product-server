@@ -35,6 +35,7 @@ router.put('/products', verifyToken, ProductController.editProduct)
 router.get('/products', verifyToken, ProductController.getAllProducts)
 router.delete('/products/:id', verifyToken, ProductController.deleteProduct)
 router.post('/products-init', ProductController.initProducts)
+router.post('/upload-products', ProductController.uploadProducts)
 
 router.post('/sells', verifyToken, SellController.createSell)
 
